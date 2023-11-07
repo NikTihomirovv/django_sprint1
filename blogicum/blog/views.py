@@ -1,22 +1,25 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 # Create your views here.
+
 
 def index(request):
     template_name = 'blog/index.html'
     context = {'posts': reversed(posts)}
     return render(request, template_name, context)
 
+
 def post_detail(request, id):
     template_name = 'blog/detail.html'
     context = {'post': posts[id]}
     return render(request, template_name, context)
-    
+
+
 def category_posts(request, category_slug):
     template_name = 'blog/category.html'
     context = {'category_slug': category_slug}
     return render(request, template_name, context)
+
 
 posts = [
     {
@@ -59,4 +62,4 @@ posts = [
                 Весь этот день я хлопотал  около вещей: укрывал и
                 укутывал их, чтобы не испортились от дождя.''',
     },
-] 
+]
