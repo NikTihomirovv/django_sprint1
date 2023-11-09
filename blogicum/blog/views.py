@@ -1,24 +1,30 @@
 from django.shortcuts import render
 
-# Create your views here.
+POSTS_DICT = {}
 
 
 def index(request):
-    template_name = 'blog/index.html'
-    context = {'posts': reversed(posts)}
-    return render(request, template_name, context)
+    context = {'posts': dict_comprehensions(posts).values()}
+    return render(request, 'blog/index.html', context)
 
 
 def post_detail(request, id):
-    template_name = 'blog/detail.html'
-    context = {'post': posts[id]}
-    return render(request, template_name, context)
+    try:
+        context = {'post': dict_comprehensions(posts)[id]}
+        return render(request, 'blog/detail.html', context)
+    except KeyError:
+        context = {'post': '404 Страница не найдена!'}
+        return render(request, 'blog/detail.html', context)
 
 
 def category_posts(request, category_slug):
-    template_name = 'blog/category.html'
     context = {'category_slug': category_slug}
-    return render(request, template_name, context)
+    return render(request, 'blog/category.html', context)
+
+
+def dict_comprehensions(posts):
+    POSTS_DICT = {post['id']: post for post in reversed(posts)}
+    return POSTS_DICT
 
 
 posts = [
