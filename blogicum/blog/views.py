@@ -4,13 +4,13 @@ POSTS_DICT = {}
 
 
 def index(request):
-    context = {'posts': dict_comprehensions(posts).values()}
+    context = {'posts': POSTS_DICT.values()}
     return render(request, 'blog/index.html', context)
 
 
 def post_detail(request, id):
     try:
-        context = {'post': dict_comprehensions(posts)[id]}
+        context = {'post': POSTS_DICT[id]}
         return render(request, 'blog/detail.html', context)
     except KeyError:
         context = {'post': '404 Страница не найдена!'}
@@ -20,11 +20,6 @@ def post_detail(request, id):
 def category_posts(request, category_slug):
     context = {'category_slug': category_slug}
     return render(request, 'blog/category.html', context)
-
-
-def dict_comprehensions(posts):
-    POSTS_DICT = {post['id']: post for post in reversed(posts)}
-    return POSTS_DICT
 
 
 posts = [
@@ -69,3 +64,4 @@ posts = [
                 укутывал их, чтобы не испортились от дождя.''',
     },
 ]
+POSTS_DICT = {post['id']: post for post in reversed(posts)}

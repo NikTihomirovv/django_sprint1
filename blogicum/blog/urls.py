@@ -10,8 +10,3 @@ urlpatterns = [
     path('category/<slug:category_slug>/', views.category_posts,
          name='category_posts')
 ]
-
-# LiNKS FOR HTML.
-# href="{% url 'blog:index' %}"
-# href="{% url 'blog:posts_detail' %}"
-# href="{% url 'blog:category_posts' %}"
